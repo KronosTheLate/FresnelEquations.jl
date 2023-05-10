@@ -1,5 +1,5 @@
 # FresnelEquations
-From [the wikipedia article on the Fresnel Equations](https://en.wikipedia.org/wiki/Fresnel_equations):
+From the [wikipedia article on the Fresnel Equations](https://en.wikipedia.org/wiki/Fresnel_equations):
 "The Fresnel equations (or Fresnel coefficients) describe the reflection and transmission of light (or electromagnetic radiation in general) when incident on an interface between different optical media."
 
 This function defines 8 functions that implement the equations found in the wikipedia article. An overview of the functions is given below.
@@ -32,3 +32,11 @@ julia> let
   0.6615541698012867
   0.6641005788972185
 ```
+
+# Assumptions
+Note that some assumptions are made in deriving these equations:
+1. The interface between the media is flat
+2. The media are homogeneous and isotropic
+3. The media are non-magnetic, i.e. with a [permeability](https://en.wikipedia.org/wiki/Permeability_(electromagnetism)) equal to that of vacuum.
+
+You can read more about the assumptions and the sources referenced in the [wikipedia article on the Fresnel Equations](https://en.wikipedia.org/wiki/Fresnel_equations):
