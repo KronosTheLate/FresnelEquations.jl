@@ -35,6 +35,30 @@ default argument value for θₜ.
 """
 _θₜ(n₁, n₂, θᵢ) = asin(n₁ / n₂ * sin(θᵢ))
 
+
+"""
+An internal function to check if the inputs make physical sense.
+"""
+function _check_angles(θᵢ, θₜ)
+    if θᵢ > π / 2
+        if θₜ > π / 2
+            throw(ArgumentError("""
+                Input angles θᵢ and θₜ and both greater than π/2. This is unphysical, and would have produced garbage results.
+            """))
+        end
+        throw(ArgumentError("""
+            Input angles θᵢ and θₜ and both greater than π/2. This is unphysical, and would have produced garbage results.
+        """))
+    elseif θₜ > π / 2
+        throw(ArgumentError("""
+            Input angle θₜ is greater than π/2. This is unphysical, and would have produced garbage results.
+        """))
+    end
+    return nothing
+end
+
+
+
 """
     R_s(n₁, n₂, θᵢ)
     R_s(n₁, n₂, θᵢ, θₜ)
@@ -51,10 +75,12 @@ n₂: The refractive index of the medium transmitted into
 θᵢ: The incident angle in radians, meansured from the surface normal
 θₜ: The transmitted angle in radians, measured  from the surface normal
 """
-R_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = abs2(
-    (n₁ * cos(θᵢ) - n₂ * cos(θₜ)) /
-    (n₁ * cos(θᵢ) + n₂ * cos(θₜ))
-)
+function R_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
+    _check_angles(θᵢ, θₜ)
+    num = n₁ * cos(θᵢ) - n₂ * cos(θₜ)
+    den = n₁ * cos(θᵢ) + n₂ * cos(θₜ)
+    return abs2(num / den)
+end
 export R_s
 
 """
@@ -92,10 +118,12 @@ n₂: The refractive index of the medium transmitted into
 θᵢ: The incident angle in radians, meansured from the surface normal
 θₜ: The transmitted angle in radians, measured  from the surface normal
 """
-R_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = abs2(
-    (n₁ * cos(θₜ) - n₂ * cos(θᵢ)) /
-    (n₁ * cos(θₜ) + n₂ * cos(θᵢ))
-)
+function R_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
+    _check_angles(θᵢ, θₜ)
+    num = n₁ * cos(θₜ) - n₂ * cos(θᵢ)
+    den = n₁ * cos(θₜ) + n₂ * cos(θᵢ)
+    return abs2(num / den)
+end
 export R_p
 
 """
@@ -136,10 +164,12 @@ n₂: The refractive index of the medium transmitted into
 θᵢ: The incident angle in radians, meansured from the surface normal
 θₜ: The transmitted angle in radians, measured  from the surface normal
 """
-r_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = /( # /(a, b) = a/b, avoiding a set of parenthesis
-    n₁ * cos(θᵢ) - n₂ * cos(θₜ),
-    n₁ * cos(θᵢ) + n₂ * cos(θₜ)
-)
+function r_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
+    _check_angles(θᵢ, θₜ)
+    num = n₁ * cos(θᵢ) - n₂ * cos(θₜ)
+    den = n₁ * cos(θᵢ) + n₂ * cos(θₜ)
+    return num / den
+end
 export r_s
 
 """
@@ -158,10 +188,12 @@ n₂: The refractive index of the medium transmitted into
 θᵢ: The incident angle in radians, meansured from the surface normal
 θₜ: The transmitted angle in radians, measured  from the surface normal
 """
-t_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = /(
-    2n₁ * cos(θᵢ),
-    n₁ * cos(θᵢ) + n₂ * cos(θₜ)
-)
+function t_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
+    _check_angles(θᵢ, θₜ)
+    num = 2n₁ * cos(θᵢ)
+    den = n₁ * cos(θᵢ) + n₂ * cos(θₜ)
+    return num / den
+end
 export t_s
 
 """
@@ -180,10 +212,12 @@ n₂: The refractive index of the medium transmitted into
 θᵢ: The incident angle in radians, meansured from the surface normal
 θₜ: The transmitted angle in radians, measured  from the surface normal
 """
-r_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = /(
-    n₂ * cos(θᵢ) - n₁ * cos(θₜ),
-    n₂ * cos(θᵢ) + n₁ * cos(θₜ)
-)
+function r_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
+    _check_angles(θᵢ, θₜ)
+    num = n₂ * cos(θᵢ) - n₁ * cos(θₜ)
+    den = n₂ * cos(θᵢ) + n₁ * cos(θₜ)
+    return num / den
+end
 export r_p
 
 """
@@ -202,10 +236,12 @@ n₂: The refractive index of the medium transmitted into
 θᵢ: The incident angle in radians, meansured from the surface normal
 θₜ: The transmitted angle in radians, measured  from the surface normal
 """
-t_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = /(
-    2n₁ * cos(θᵢ),
-    n₂ * cos(θᵢ) + n₁ * cos(θₜ)
-)
+function t_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
+    _check_angles(θᵢ, θₜ)
+    num = 2n₁ * cos(θᵢ)
+    den = n₂ * cos(θᵢ) + n₁ * cos(θₜ)
+    return num / den
+end
 export t_p
 
 end
