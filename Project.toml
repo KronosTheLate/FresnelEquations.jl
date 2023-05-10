@@ -1,0 +1,13 @@
+name = "FresnelEquations"
+uuid = "9e8d69f6-009b-4290-9624-9f9a175b876d"
+authors = ["KronosTheLate <densbal@live.no> and contributors"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.6"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
