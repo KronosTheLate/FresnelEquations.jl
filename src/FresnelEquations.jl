@@ -57,97 +57,6 @@ function _check_angles(θᵢ, θₜ)
     return nothing
 end
 
-
-
-"""
-    R_s(n₁, n₂, θᵢ)
-    R_s(n₁, n₂, θᵢ, θₜ)
-
-Calculate the reflectance for s-polarized light, i.e. 
-the fraction of incident light energy that is reflected. 
-
-The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
-which Snell's law states.
-
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
-"""
-function R_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
-    _check_angles(θᵢ, θₜ)
-    num = n₁ * cos(θᵢ) - n₂ * cos(θₜ)
-    den = n₁ * cos(θᵢ) + n₂ * cos(θₜ)
-    return abs2(num / den)
-end
-export R_s
-
-"""
-    T_s(n₁, n₂, θᵢ)
-    T_s(n₁, n₂, θᵢ, θₜ)
-
-Calculate the transmittance for s-polarized light, i.e. 
-the fraction of incident light energy that is transmitted. 
-
-The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
-which Snell's law states.
-
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
-"""
-T_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = 1 - R_s(n₁, n₂, θᵢ, θₜ)
-export T_s
-
-"""
-    R_p(n₁, n₂, θᵢ)
-    R_p(n₁, n₂, θᵢ, θₜ)
-
-Calculate the reflectance for p-polarized light, i.e. 
-the fraction of incident light energy that is reflected. 
-
-The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
-which Snell's law states.
-
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
-"""
-function R_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
-    _check_angles(θᵢ, θₜ)
-    num = n₁ * cos(θₜ) - n₂ * cos(θᵢ)
-    den = n₁ * cos(θₜ) + n₂ * cos(θᵢ)
-    return abs2(num / den)
-end
-export R_p
-
-"""
-    T_p(n₁, n₂, θᵢ)
-    T_p(n₁, n₂, θᵢ, θₜ)
-
-Calculate the transmittance for p-polarized light, i.e. 
-the fraction of incident light energy that is transmitted. 
-
-The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
-which Snell's law states.
-
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
-"""
-T_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = 1 - R_p(n₁, n₂, θᵢ, θₜ)
-export T_p
-
-# Complex amplitude reflection and transmission coefficients
-# The equations consider a plane wave incident on a plane interface at angle of incidence θ i {\displaystyle \theta _{\mathrm {i} }}, a wave reflected at angle θ r = θ i {\displaystyle \theta _{\mathrm {r} }=\theta _{\mathrm {i} }}, and a wave transmitted at angle θ t {\displaystyle \theta _{\mathrm {t} }}.
-
 """
     r_s(n₁, n₂, θᵢ)
     r_s(n₁, n₂, θᵢ, θₜ)
@@ -171,30 +80,6 @@ function r_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
     return num / den
 end
 export r_s
-
-"""
-    t_s(n₁, n₂, θᵢ)
-    t_s(n₁, n₂, θᵢ, θₜ)
-
-Calculate the transmission coefficient for s-polarized light, i.e. 
-the factor gained by the E-field amplitude by the transmission.
-
-The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
-which Snell's law states.
-
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
-"""
-function t_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
-    _check_angles(θᵢ, θₜ)
-    num = 2n₁ * cos(θᵢ)
-    den = n₁ * cos(θᵢ) + n₂ * cos(θₜ)
-    return num / den
-end
-export t_s
 
 """
     r_p(n₁, n₂, θᵢ)
@@ -221,6 +106,30 @@ end
 export r_p
 
 """
+    t_s(n₁, n₂, θᵢ)
+    t_s(n₁, n₂, θᵢ, θₜ)
+
+Calculate the transmission coefficient for s-polarized light, i.e. 
+the factor gained by the E-field amplitude by the transmission.
+
+The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
+which Snell's law states.
+
+# Arguments:
+n₁: The refractive index of the original medium
+n₂: The refractive index of the medium transmitted into
+θᵢ: The incident angle in radians, meansured from the surface normal
+θₜ: The transmitted angle in radians, measured  from the surface normal
+"""
+function t_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
+    _check_angles(θᵢ, θₜ)
+    num = 2n₁ * cos(θᵢ)
+    den = n₁ * cos(θᵢ) + n₂ * cos(θₜ)
+    return num / den
+end
+export t_s
+
+"""
     t_p(n₁, n₂, θᵢ)
     t_p(n₁, n₂, θᵢ, θₜ)
 
@@ -243,5 +152,82 @@ function t_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
     return num / den
 end
 export t_p
+
+
+"""
+    R_s(n₁, n₂, θᵢ)
+    R_s(n₁, n₂, θᵢ, θₜ)
+
+Calculate the reflectance for s-polarized light, i.e. 
+the fraction of incident light energy that is reflected. 
+
+The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
+which Snell's law states.
+
+# Arguments:
+n₁: The refractive index of the original medium
+n₂: The refractive index of the medium transmitted into
+θᵢ: The incident angle in radians, meansured from the surface normal
+θₜ: The transmitted angle in radians, measured  from the surface normal
+"""
+R_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = abs2(r_s(n₁, n₂, θᵢ, θₜ))
+export R_s
+
+"""
+    R_p(n₁, n₂, θᵢ)
+    R_p(n₁, n₂, θᵢ, θₜ)
+
+Calculate the reflectance for p-polarized light, i.e. 
+the fraction of incident light energy that is reflected. 
+
+The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
+which Snell's law states.
+
+# Arguments:
+n₁: The refractive index of the original medium
+n₂: The refractive index of the medium transmitted into
+θᵢ: The incident angle in radians, meansured from the surface normal
+θₜ: The transmitted angle in radians, measured  from the surface normal
+"""
+R_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = abs2(r_p(n₁, n₂, θᵢ, θₜ))
+export R_p
+
+"""
+    T_s(n₁, n₂, θᵢ)
+    T_s(n₁, n₂, θᵢ, θₜ)
+
+Calculate the transmittance for s-polarized light, i.e. 
+the fraction of incident light energy that is transmitted. 
+
+The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
+which Snell's law states.
+
+# Arguments:
+n₁: The refractive index of the original medium
+n₂: The refractive index of the medium transmitted into
+θᵢ: The incident angle in radians, meansured from the surface normal
+θₜ: The transmitted angle in radians, measured  from the surface normal
+"""
+T_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = abs2(t_s(n₁, n₂, θᵢ, θₜ))
+export T_s
+
+"""
+    T_p(n₁, n₂, θᵢ)
+    T_p(n₁, n₂, θᵢ, θₜ)
+
+Calculate the transmittance for p-polarized light, i.e. 
+the fraction of incident light energy that is transmitted. 
+
+The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
+which Snell's law states.
+
+# Arguments:
+n₁: The refractive index of the original medium
+n₂: The refractive index of the medium transmitted into
+θᵢ: The incident angle in radians, meansured from the surface normal
+θₜ: The transmitted angle in radians, measured  from the surface normal
+"""
+T_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = abs2(t_p(n₁, n₂, θᵢ, θₜ))
+export T_p
 
 end
