@@ -208,7 +208,7 @@ n₂: The refractive index of the medium transmitted into
 θᵢ: The incident angle in radians, meansured from the surface normal
 θₜ: The transmitted angle in radians, measured  from the surface normal
 """
-T_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = abs2(t_s(n₁, n₂, θᵢ, θₜ))
+T_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = 1 - R_s(n₁, n₂, θᵢ, θₜ)
 export T_s
 
 """
@@ -227,7 +227,7 @@ n₂: The refractive index of the medium transmitted into
 θᵢ: The incident angle in radians, meansured from the surface normal
 θₜ: The transmitted angle in radians, measured  from the surface normal
 """
-T_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = abs2(t_p(n₁, n₂, θᵢ, θₜ))
+T_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = 1 - R_p(n₁, n₂, θᵢ, θₜ)
 export T_p
 
 end
