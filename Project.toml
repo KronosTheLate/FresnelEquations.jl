@@ -1,7 +1,7 @@
 name = "FresnelEquations"
 uuid = "9e8d69f6-009b-4290-9624-9f9a175b876d"
 authors = ["KronosTheLate <densbal@live.no> and contributors"]
-version = "0.1.1"
+version = "0.1.0"
 
 [compat]
 julia = "1.6"
