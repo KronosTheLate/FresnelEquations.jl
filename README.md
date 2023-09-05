@@ -35,7 +35,7 @@ t_s = 0.5485837703548635
 t_p = 0.6018883061935153
 ```
 
-Each function has detailed docstrings, which are concidered the documentation of this package. 
+The functions have detailed docstrings, which are concidered the documentation of this package. 
 Type `?` to enter the REPL help mode, and enter the name of the function to see the docstring. For example:
 ```julia
 help?> R_s
