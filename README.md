@@ -8,8 +8,8 @@ This package defines 8 functions that implement the equations found in the wikip
 |:---:|:---:|:---:|
 |`R_s` and `R_p`|Reflectance|Fraction of energy reflected|
 |`T_s` and `T_p`|Transmittance|Fraction of energy transmitted|
-|`r_s` and `r_p`|Reflection coefficient|Change in amplitude of E-field upon reflection|
-|`t_s` and `t_p`|Transmission coefficient|Change in amplitude of E-field upon transmission|
+|`r_s` and `r_p`|Reflection coefficient|Change in amplitude of E-field upon reflection (factor)|
+|`t_s` and `t_p`|Transmission coefficient|Change in amplitude of E-field upon transmission (factor)|
 
 ## Quickstart
 Usage of this package is quite simple. Below is a demonstration of the usage of all 8 functions defined.
