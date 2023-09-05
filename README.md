@@ -2,7 +2,7 @@
 From the [wikipedia article on the Fresnel Equations](https://en.wikipedia.org/wiki/Fresnel_equations):
 "The Fresnel equations (or Fresnel coefficients) describe the reflection and transmission of light (or electromagnetic radiation in general) when incident on an interface between different optical media."
 
-This function defines 8 functions that implement the equations found in the wikipedia article. An overview of the functions is given below.
+This package defines 8 functions that implement the equations found in the wikipedia article. An overview of the functions is given below.
 
 |Function|Description|Physical meaning|
 |:---:|:---:|:---:|
