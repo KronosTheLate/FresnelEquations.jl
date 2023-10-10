@@ -39,20 +39,26 @@ The functions have detailed docstrings, which are concidered the documentation o
 Type `?` to enter the REPL help mode, and enter the name of the function to see the docstring. For example:
 ```julia
 help?> R_s
-search: R_s r_s @r_str @var_str @raw_str set_zero_subnormals get_zero_subnormals promote_shape PRESERVE_SEMVER current_task redirect_stdio redirect_stdin reenable_sigint redirect_stdout
+search: R_s r_s
 
   R_s(n₁, n₂, θᵢ)
   R_s(n₁, n₂, θᵢ, θₜ)
+
 
   Calculate the reflectance for s-polarized light, i.e. the fraction of incident light energy that is reflected.
 
   The transmitted angle θₜ defaults to asin(n₁ / n₂ * sin(θᵢ)), which Snell's law states.
 
   Arguments:
-  ≡≡≡≡≡≡≡≡≡≡≡≡
+  ≡≡≡≡≡≡≡≡≡≡
 
-  n₁: The refractive index of the original medium n₂: The refractive index of the medium transmitted into θᵢ: The incident angle in radians, meansured from the surface normal θₜ: The transmitted
-  angle in radians, measured from the surface normal
+    •  n₁: The refractive index of the original medium
+
+    •  n₂: The refractive index of the medium transmitted into
+
+    •  θᵢ: The incident angle in radians, meansured from the surface normal
+
+    •  θₜ: The transmitted angle in radians, measured from the surface normal
 ```
 This package uses unicode in docstrings and internals, but takes care to never force the user to use unicode for anything.
 
