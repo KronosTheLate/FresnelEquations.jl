@@ -29,15 +29,27 @@ be θₜ, and default to asin(n₁/n₂ * sin(θₜ))
 =#
 
 """
-Transmitted angle as function of n₁, n₂ and θᵢ.
-By Snell's law, intended for internal use as 
+	_θₜ(n₁, n₂, θᵢ)
+
+Calculate the transmitted angle as function of initial 
+refractive index, final refractive index, and incident angle.  
+The calculation is done by Snell's law.
+
+Intended for internal use as 
 default argument value for θₜ.
+
+# Arguments:
+- n₁: Index of refraction of initial material  
+- n₂: Index of refraction of final material   
+- θᵢ: Indicent angle in radians, measured out from surface normal  
 """
 _θₜ(n₁, n₂, θᵢ) = asin(n₁ / n₂ * sin(θᵢ))
 
 
 """
-An internal function to check if the inputs make physical sense.
+	_check_angles(θᵢ, θₜ)
+
+An internal function to check if the input angles make physical sense.
 """
 function _check_angles(θᵢ, θₜ)
     if θᵢ > π / 2
@@ -57,6 +69,14 @@ function _check_angles(θᵢ, θₜ)
     return nothing
 end
 
+const arguments_string = """
+# Arguments:
+- n₁: The refractive index of the original medium
+- n₂: The refractive index of the medium transmitted into
+- θᵢ: The incident    angle in radians, meansured from the surface normal
+- θₜ: The transmitted angle in radians, measured  from the surface normal
+"""
+
 """
     r_s(n₁, n₂, θᵢ)
     r_s(n₁, n₂, θᵢ, θₜ)
@@ -67,11 +87,7 @@ the factor gained by the E-field amplitude by the reflection.
 The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
 which Snell's law states.
 
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
+$arguments_string
 """
 function r_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
     _check_angles(θᵢ, θₜ)
@@ -91,11 +107,7 @@ the factor gained by the E-field amplitude by the reflection.
 The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
 which Snell's law states.
 
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
+$arguments_string
 """
 function r_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
     _check_angles(θᵢ, θₜ)
@@ -115,11 +127,7 @@ the factor gained by the E-field amplitude by the transmission.
 The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
 which Snell's law states.
 
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
+$arguments_string
 """
 function t_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
     _check_angles(θᵢ, θₜ)
@@ -139,11 +147,7 @@ the factor gained by the E-field amplitude by the transmission.
 The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
 which Snell's law states.
 
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
+$arguments_string
 """
 function t_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ))
     _check_angles(θᵢ, θₜ)
@@ -164,11 +168,7 @@ the fraction of incident light energy that is reflected.
 The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
 which Snell's law states.
 
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
+$arguments_string
 """
 R_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = abs2(r_s(n₁, n₂, θᵢ, θₜ))
 export R_s
@@ -183,11 +183,7 @@ the fraction of incident light energy that is reflected.
 The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
 which Snell's law states.
 
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
+$arguments_string
 """
 R_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = abs2(r_p(n₁, n₂, θᵢ, θₜ))
 export R_p
@@ -202,11 +198,7 @@ the fraction of incident light energy that is transmitted.
 The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
 which Snell's law states.
 
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
+$arguments_string
 """
 T_s(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = n₂ * cos(θₜ) / (n₁ * cos(θᵢ)) * abs2(t_s(n₁, n₂, θᵢ, θₜ))
 export T_s
@@ -221,11 +213,7 @@ the fraction of incident light energy that is transmitted.
 The transmitted angle θₜ defaults to `asin(n₁ / n₂ * sin(θᵢ))`, 
 which Snell's law states.
 
-# Arguments:
-n₁: The refractive index of the original medium
-n₂: The refractive index of the medium transmitted into
-θᵢ: The incident angle in radians, meansured from the surface normal
-θₜ: The transmitted angle in radians, measured  from the surface normal
+$arguments_string
 """
 T_p(n₁, n₂, θᵢ, θₜ=_θₜ(n₁, n₂, θᵢ)) = n₂ * cos(θₜ) / (n₁ * cos(θᵢ)) * abs2(t_p(n₁, n₂, θᵢ, θₜ))
 export T_p
